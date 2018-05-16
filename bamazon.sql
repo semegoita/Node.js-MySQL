@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS bamazon_DB;
 CREATE DATABASE bamazon_DB;
 USE bamazon_DB;
 CREATE TABLE products(
-  item_Id INTEGER NOT NULL AUTO_INCREMENT,
+  item_Id INT NOT NULL AUTO_INCREMENT,
   product_name VARCHAR(30) NOT NULL,
   department_name VARCHAR(30),
   price INT default 0,
