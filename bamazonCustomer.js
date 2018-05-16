@@ -13,21 +13,21 @@ connection.connect(function(err) {
     console.log("connected");
     //start();
   });
-//   function start(){
-//       inquirer.prompt([
-//           {
-//           name:"item",
-//           type:"input",
-//           message:"what is the ID of the product you are looking for?"
-//           },
-//           {
-//             name:"item",
-//             type:"input",
-//             message:"How many units of that item are you looking for?",
+  function start(){
+      inquirer.prompt([
+          {
+          name:"item",
+          type:"input",
+          message:"what is the ID of the product you are looking for?"
+          },
+          {
+            name:"item",
+            type:"input",
+            message:"How many units of that item are you looking for?",
            
-//           }
-//       ])
-//       .then(function(){
-//         connection.
-//       });
-//   };
+          }
+      ])
+      .then(function(){
+        connection.
+      });
+  };
