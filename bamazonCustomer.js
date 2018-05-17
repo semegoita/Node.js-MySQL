@@ -36,7 +36,21 @@ function run() {
                 }else if (quantity > res[0].stock_quantity){
                     console.log("You have requested to purchase the following quantity: " + quantity + ".  We only have " + res[0].stock_quantity + " in stock.\nPlease try again.");
                     displayProducts();
+                }else {
+                    var newQuantity = Number(res[0].stock_quantity)-Number(quantity);
+                    connection.query(
+                        "UPDATE products SET ? WHERE ?",
+                        [
+                            {
+                                stock_quantity: newQuantity
+                            },
+                            {
+                                item_Id: item_ID
+                            }
+                        ]
+                    )
                 }
+                
             });
         });
 }
