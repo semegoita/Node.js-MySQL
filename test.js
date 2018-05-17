@@ -11,8 +11,8 @@ var connection = mysql.createConnection({
 	user: 'root',
 
 	// Your password
-	password: '',
-	database: 'Bamazon'
+	password: 'Roseha1697',
+	database: 'bamazon_DB'
 });
 
 // validateInput makes sure that the user is supplying only positive integers for their inputs
@@ -56,10 +56,10 @@ function promptUserPurchase() {
 		// Query db to confirm that the given item ID exists in the desired quantity
 		var queryStr = 'SELECT * FROM products WHERE ?';
 
-		connection.query(queryStr, {item_id: item}, function(err, data) {
+		connection.query(queryStr, {item_Id: item}, function(err, data) {
 			if (err) throw err;
 
-			// If the user has selected an invalid item ID, data attay will be empty
+			// If the user has selected an invalid item ID, data array will be empty
 			// console.log('data = ' + JSON.stringify(data));
 
 			if (data.length === 0) {
@@ -77,7 +77,7 @@ function promptUserPurchase() {
 					console.log('Congratulations, the product you requested is in stock! Placing order!');
 
 					// Construct the updating query string
-					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
+					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_Id = ' + item;
 					// console.log('updateQueryStr = ' + updateQueryStr);
 
 					// Update the inventory
@@ -120,9 +120,9 @@ function displayInventory() {
 		var strOut = '';
 		for (var i = 0; i < data.length; i++) {
 			strOut = '';
-			strOut += 'Item ID: ' + data[i].item_id + '  //  ';
-			strOut += 'Product Name: ' + data[i].product_name + '  //  ';
-			strOut += 'Department: ' + data[i].department_name + '  //  ';
+			strOut += 'Item ID: ' + data[i].item_Id + '  ||  ';
+			strOut += 'Product Name: ' + data[i].product_name + '  ||  ';
+			strOut += 'Department: ' + data[i].department_name + '  ||  ';
 			strOut += 'Price: $' + data[i].price + '\n';
 
 			console.log(strOut);
