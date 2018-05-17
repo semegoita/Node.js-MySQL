@@ -17,17 +17,18 @@ function runSearch() {
     inquirer
         .prompt([
             {
-            name: "productID",
             type: "input",
+            name: "productID",
             message: "What is the product_ID of the item you are interested?"
             },
             {
-            name: "amount",
             type: "input",
+            name: "amount",
             message: "How many of this product are you interested in buying?",
             }
         ])
-        .then(function (answer) {
-           
+        .then(function (input) {
+            var item = input.productID;
+            var quantity = input.amount;
         });
 }
