@@ -5,30 +5,38 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "Roseha1697",
     database: "bamazon_DB"
 });
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected");
-    runSearch();
+    display();
 });
-function runSearch() {
+function run() {
     inquirer
         .prompt([
             {
             type: "input",
-            name: "productID",
+            name: "itemID",
             message: "What is the product_ID of the item you are interested?"
             },
             {
             type: "input",
-            name: "amount",
+            name: "quantity",
             message: "How many of this product are you interested in buying?",
             }
         ])
-        .then(function (input) {
-            var item = input.productID;
-            var quantity = input.amount;
+        .then(function (answer) {
+            var itemID = answer.productID;
+            var quantity = answer.amount;
+            connection.query("SELECT item_Id,product_name,price,stock_quantity FROM products WHERE item_Id = "+itemID, function(err,res){
+                if (res === undefined || res.length ===0){
+                    console.log("Sorry you have entered an incorrect itemID please try again")
+                }else if (quantity > res[0].stock_quantity){
+                    console.log("You have requested to purchase the following quantity: " + quantity + ".  We only have " + res[0].stock_quantity + " in stock.\nPlease try again.");
+                    displayProducts();
+                }
+            });
         });
 }
