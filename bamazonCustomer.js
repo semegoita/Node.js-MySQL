@@ -5,13 +5,13 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Roseha1697",
+    password: "",
     database: "bamazon_DB"
 });
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected");
-    display();
+    displayProducts();
 });
 function run() {
     inquirer
@@ -19,7 +19,7 @@ function run() {
             {
             type: "input",
             name: "itemID",
-            message: "What is the product_ID of the item you are interested?"
+            message: "What is the item_Id of the item you are interested?"
             },
             {
             type: "input",
@@ -28,8 +28,9 @@ function run() {
             }
         ])
         .then(function (answer) {
-            var itemID = answer.productID;
-            var quantity = answer.amount;
+            var itemID = answer.itemID;
+            var quantity = answer.quantity;
+
             connection.query("SELECT item_Id,product_name,price,stock_quantity FROM products WHERE item_Id = "+itemID, function(err,res){
                 if (res === undefined || res.length ===0){
                     console.log("Sorry you have entered an incorrect itemID please try again")
@@ -50,7 +51,7 @@ function run() {
                         ]
                     )
                  var total = Number(quantity)*Number(res[0].price);
-                 console.log(sprintf("Your total is: $%.2f", total));
+                 //console.log(sprintf("Your total is: $%.2f", total));
                     displayProducts();
                 }
                 
@@ -59,12 +60,12 @@ function run() {
 }
 function displayProducts(){
     console.log("PRODUCTS FOR SALE\n");
-    connection.query("SELECT item_id, product_name, price FROM products", function (err, res) {
+    connection.query("SELECT item_Id, product_name, price FROM products", function (err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
-            console.log(sprintf("Item ID: %-8i Product: %-25s Price: $%-10.2f", res[i].item_id, res[i].product_name, res[i].price));   
+            //console.log(sprintf("Item ID: %-8i Product: %-25s Price: $%-10.2f", res[i].item_ID, res[i].product_name, res[i].price));   
         }
-        start();
+        run();
     });
 
 }
