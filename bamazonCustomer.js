@@ -49,8 +49,22 @@ function run() {
                             }
                         ]
                     )
+                 var total = Number(quantity)*Number(res[0].price);
+                 console.log(sprintf("Your total is: $%.2f", total));
+                    displayProducts();
                 }
                 
             });
         });
+}
+function displayProducts(){
+    console.log("PRODUCTS FOR SALE\n");
+    connection.query("SELECT item_id, product_name, price FROM products", function (err, res) {
+        if (err) throw err;
+        for (var i = 0; i < res.length; i++) {
+            console.log(sprintf("Item ID: %-8i Product: %-25s Price: $%-10.2f", res[i].item_id, res[i].product_name, res[i].price));   
+        }
+        start();
+    });
+
 }
